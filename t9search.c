@@ -19,7 +19,6 @@ int main(int argc, char *argv[]) {
 
             if (character == EOF) break;
             putchar(character);
-            //printf("%c", character);
         }
         
     }
