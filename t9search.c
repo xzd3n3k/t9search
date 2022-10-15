@@ -59,9 +59,21 @@ int len(char *str) { // function that returns len of given string
     return counter;
 }
 
+int includes(char *big, char small) {
+    int len_big = len(big);
+    for (int j = 0; j < len_big; j++) {
+        if (big[j] == small) return 1;
+    }
+    
+    return 0;
+}
+
 int combinations(char *number) {
     int number_len = len(number);
     char *text = "petr novak";
+    int def = 0;
+    int iter = 0;
+    int match = 0;
     for (int i = 0; i < number_len; i++) {
 
         char *letters;
@@ -93,16 +105,19 @@ int combinations(char *number) {
                 break;
         }
 
-        int def = 0;
-        int iter = 0;
-
         for (int x = 0; x < len(text); x++) {
-            if (strstr(letters, text[iter])!= NULL) iter++;
-            break;
+            if (includes(letters, text[iter])!= 0) {
+                printf("text iter true: %c, letters: %s, iter: %d, i: %d\n", text[iter], letters, iter, i);
+                iter++;
+                match++;
+                if (match == number_len) {printf("SHODA\n");}
+                break;
+                }
 
             def += 1;
             iter = def;
             i = 0;
+            match = 0;
         }
         
     }
@@ -110,8 +125,7 @@ int combinations(char *number) {
 }
 
 int main(int argc, char *argv[]) {
-
-
+    combinations("668");
     if (argc > 2) { // checking if i have correct number of arguments
         printf("Error: too many arguments, expected 1, taken %d\n", argc-1);
         return 1;
