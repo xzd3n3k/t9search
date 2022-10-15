@@ -2,7 +2,7 @@
 #include <string.h>
 #define MAX_RECORD_LEN 100
 
-int count_lines() { // function to count and return how many records do i have from stdin
+/*int count_lines() { // function to count and return how many records do i have from stdin
     char line[MAX_RECORD_LEN];
     int counter = 0;
 
@@ -11,10 +11,9 @@ int count_lines() { // function to count and return how many records do i have f
         counter += 1;
     }
 
-    printf("counter: %d\n", counter); //del
     return counter;
     
-}
+}*/
 
 char *rem_spaces(char *str) {   // function to remove spaces from records and return edited records
     int i = 0, j = 0;
@@ -44,7 +43,7 @@ char *rem_newline(char *str) {   // function to remove newlines from records and
     
 }
 
-int len(char *str) {
+int len(char *str) { // function that returns len of given string
     int counter = 0;
 
     for (int i = 0; i < MAX_RECORD_LEN; i++) {
@@ -66,25 +65,25 @@ int main(int argc, char *argv[]) {
 
     else if (argc == 2) {
         
-        char *number = argv[1];
-        char line[MAX_RECORD_LEN];
-        char number_line[MAX_RECORD_LEN];
-        int auxiliary_found = 0;
+        char *number = argv[1]; // given number
+        char line[MAX_RECORD_LEN]; // declared variable for name-record
+        char number_line[MAX_RECORD_LEN]; // declared variable for number-record
+        int auxiliary_found = 0; // auxiliary variable to determinate if at least one contact was found or not
 
-        while (fgets(line, MAX_RECORD_LEN+1, stdin))
+        while (fgets(line, MAX_RECORD_LEN+1, stdin)) // while records are available
         {
-            char *line_wo_nwl = rem_newline(line);
-            char *number_line_wo_nwl = rem_newline(number_line);
+            char *line_wo_nwl = rem_newline(line); // variable to store name-record without newline
+            char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
 
-            fgets(number_line, MAX_RECORD_LEN+1, stdin);
+            fgets(number_line, MAX_RECORD_LEN+1, stdin); // getting number-record and storing into number_line
 
-            char *edited_number = rem_spaces(number_line);
-            char *found = strstr(edited_number, number);
+            char *edited_number = rem_spaces(number_line); // variable to store number without spaces
+            char *found = strstr(edited_number, number); // variable to store if substring was found or not
 
-            if (found != NULL) {auxiliary_found++; printf("NALEZENO: %s, %s\n", line_wo_nwl, number_line_wo_nwl);}
+            if (found != NULL) {auxiliary_found++; printf("NALEZENO: %s, %s\n", line_wo_nwl, number_line_wo_nwl);} // if substring was found increment auxiliary variable and print contact
         }
 
-        if (auxiliary_found == 0) {printf("Not found");}
+        if (auxiliary_found == 0) {printf("Not found");} // if none contact was found print message
 
         return 0;
         
