@@ -59,7 +59,7 @@ int len(char *str) { // function that returns len of given string
     return counter;
 }
 
-int includes(char *big, char small) {
+int includes(char *big, char small) { // function to check if string contains exact letter returns 1 when it does and 0 when it doesnt
     int len_big = len(big);
     for (int j = 0; j < len_big; j++) {
         if (big[j] == small) return 1;
@@ -68,16 +68,18 @@ int includes(char *big, char small) {
     return 0;
 }
 
-int combinations(char *number) {
-    int number_len = len(number);
-    char *text = "petr novak";
-    int def = 0;
-    int iter = 0;
-    int match = 0;
+int filter(char *number) {
+
+    int number_len = len(number); // len of given number
+    char *text = "petr novak"; // text - remake to universal - to take line
+    int def = 0; // default - when should it start to search again when there are multiple occurences of same letter
+    int iter = 0; // given text iterator
+    int match = 0; // match counter
+
     for (int i = 0; i < number_len; i++) {
 
-        char *letters;
-        switch (number[i])
+        char *letters; // letters
+        switch (number[i]) // switch taking number by number - by cycle iterator - and transforming it into letters
         {
             case '2':
                 letters = "abc";
@@ -105,19 +107,19 @@ int combinations(char *number) {
                 break;
         }
 
-        for (int x = 0; x < len(text); x++) {
-            if (includes(letters, text[iter])!= 0) {
+        for (int x = 0; x < len(text); x++) { // iterating text
+            if (includes(letters, text[iter])!= 0) { // if letter is in transformed number
                 printf("text iter true: %c, letters: %s, iter: %d, i: %d\n", text[iter], letters, iter, i);
-                iter++;
-                match++;
-                if (match == number_len) {printf("SHODA\n");}
-                break;
+                iter++; // increment iterator
+                match++; // increment match
+                if (match == number_len) {printf("SHODA\n");} // checking if its OK
+                break; // break cycle to continue matching
                 }
 
-            def += 1;
-            iter = def;
-            i = 0;
-            match = 0;
+            def += 1; // if its not wanted letter, increment default to start searching on +1 later position next time (for multiple occurence of same letter)
+            iter = def; // iterator is same as def because we are iterating through iterator
+            i = 0; // reset main cycle
+            match = 0; // reset match counter
         }
         
     }
@@ -125,7 +127,7 @@ int combinations(char *number) {
 }
 
 int main(int argc, char *argv[]) {
-    combinations("668");
+    filter("668");
     if (argc > 2) { // checking if i have correct number of arguments
         printf("Error: too many arguments, expected 1, taken %d\n", argc-1);
         return 1;
