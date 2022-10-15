@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #define MAX_RECORD_LEN 100
-
+//TODO tolowercase names
 /*int count_lines() { // function to count and return how many records do i have from stdin
     char line[MAX_RECORD_LEN];
     int counter = 0;
@@ -45,14 +45,36 @@ char *rem_newline(char *str) {   // function to remove newlines from records and
 
 int len(char *str) { // function that returns len of given string
     int counter = 0;
+    int i = 0;
 
-    for (int i = 0; i < MAX_RECORD_LEN; i++) {
-        if (str[i] != '\0' && str[i] != '\n') counter += 1;
+    while (str[i])
+    {
+        if (str[i] != '\n' && str[i] != '\0') {
+        counter += 1;
+        }
+        i++;
     }
+    
 
     return counter;
 }
 
+char *combinations(char *number) {
+    int number_len = len(number);
+
+    for (int i = 0; i < number_len; i++) {
+        switch (number[i])
+        {
+        case '2':
+            printf("abc\n");
+            break;
+        case '1':
+            printf("def\n");
+            break;
+        }
+    }
+    return "a";
+}
 
 int main(int argc, char *argv[]) {
 
@@ -66,6 +88,7 @@ int main(int argc, char *argv[]) {
     else if (argc == 2) {
         
         char *number = argv[1]; // given number
+
         char line[MAX_RECORD_LEN]; // declared variable for name-record
         char number_line[MAX_RECORD_LEN]; // declared variable for number-record
         int auxiliary_found = 0; // auxiliary variable to determinate if at least one contact was found or not
