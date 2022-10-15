@@ -59,21 +59,54 @@ int len(char *str) { // function that returns len of given string
     return counter;
 }
 
-char *combinations(char *number) {
+int combinations(char *number) {
     int number_len = len(number);
-
+    char *text = "petr novak";
     for (int i = 0; i < number_len; i++) {
+
+        char *letters;
         switch (number[i])
         {
-        case '2':
-            printf("abc\n");
-            break;
-        case '1':
-            printf("def\n");
-            break;
+            case '2':
+                letters = "abc";
+                break;
+            case '3':
+                letters = "def";
+                break;
+            case '4':
+                letters = "ghi";
+                break;
+            case '5':
+                letters = "jkl";
+                break;
+            case '6':
+                letters = "mno";
+                break;
+            case '7':
+                letters = "pqrs";
+                break;
+            case '8':
+                letters = "tuv";
+                break;
+            case '9':
+                letters = "wxyz";
+                break;
         }
+
+        int def = 0;
+        int iter = 0;
+
+        for (int x = 0; x < len(text); x++) {
+            if (strstr(letters, text[iter])!= NULL) iter++;
+            break;
+
+            def += 1;
+            iter = def;
+            i = 0;
+        }
+        
     }
-    return "a";
+    return 0;
 }
 
 int main(int argc, char *argv[]) {
