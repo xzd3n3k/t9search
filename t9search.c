@@ -2,7 +2,7 @@
 #include <string.h>
 #define MAX_RECORD_LEN 100
 
-int parse_stdin() {
+int count_lines() {
     char line[MAX_RECORD_LEN];
     int counter = 0;
 
@@ -15,7 +15,7 @@ int parse_stdin() {
     
 }
 
-char *parse_stdinn(char *str) {
+char *rem_spaces(char *str) {
     int i = 0, j = 0;
     while (str[i])
     {
@@ -29,10 +29,6 @@ char *parse_stdinn(char *str) {
 }
 int main(int argc, char *argv[]) {
 
-    parse_stdin();
-    char text[MAX_RECORD_LEN] = "ah oj";
-    parse_stdinn(text);
-
     if (argc > 2) {
         printf("Error: too many arguments, expected 1, taken %d\n", argc-1);
         return 1;
@@ -42,6 +38,13 @@ int main(int argc, char *argv[]) {
     else if (argc == 2) {
         char *number = argv[1];
         printf("number: %s\n", number);
+
+        char line[MAX_RECORD_LEN];
+        while (fgets(line, MAX_RECORD_LEN+1, stdin))
+        {
+            char parsed_line[MAX_RECORD_LEN] = rem_spaces(line);
+        }
+        
     }
 
 
