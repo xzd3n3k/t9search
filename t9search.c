@@ -10,13 +10,29 @@ int parse_stdin() {
     {
         counter += 1;
     }
-    printf("%d", counter);
+    printf("counter: %d\n", counter);
     return 0;
+    
+}
+
+char *parse_stdinn(char *str) {
+    int i = 0, j = 0;
+    while (str[i])
+    {
+        if (str[i] != ' ') str[j++] = str[i];
+        i++;
+    }
+    str[j] = '\0';
+    printf("string: %s\n", str);
+    return str;
     
 }
 int main(int argc, char *argv[]) {
 
     parse_stdin();
+    char text[MAX_RECORD_LEN] = "ah oj";
+    parse_stdinn(text);
+
     if (argc > 2) {
         printf("Error: too many arguments, expected 1, taken %d\n", argc-1);
         return 1;
@@ -25,8 +41,7 @@ int main(int argc, char *argv[]) {
 
     else if (argc == 2) {
         char *number = argv[1];
-        printf("%s\n", number);
-        printf("%lu", strlen(number));
+        printf("number: %s\n", number);
     }
 
 
