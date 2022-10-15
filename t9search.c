@@ -65,17 +65,14 @@ int main(int argc, char *argv[]) {
 
 
     else if (argc == 2) {
+        
         char *number = argv[1];
-
         char line[MAX_RECORD_LEN];
         char number_line[MAX_RECORD_LEN];
+        int auxiliary_found = 0;
 
         while (fgets(line, MAX_RECORD_LEN+1, stdin))
         {
-            /*char *edited_text = rem_spaces(line);
-            char *found = strstr(edited_text, number);
-            if (found != NULL) {printf("NALEZENO: %s\n", edited_text);}
-            printf("edited string: %s\n", edited_text);*/
             char *line_wo_nwl = rem_newline(line);
             char *number_line_wo_nwl = rem_newline(number_line);
 
@@ -84,8 +81,10 @@ int main(int argc, char *argv[]) {
             char *edited_number = rem_spaces(number_line);
             char *found = strstr(edited_number, number);
 
-            if (found != NULL) {printf("NALEZENO: %s, %s\n", line_wo_nwl, number_line_wo_nwl);}
+            if (found != NULL) {auxiliary_found++; printf("NALEZENO: %s, %s\n", line_wo_nwl, number_line_wo_nwl);}
         }
+
+        if (auxiliary_found == 0) {printf("Not found");}
 
         return 0;
         
