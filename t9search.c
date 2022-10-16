@@ -68,10 +68,10 @@ int includes(char *big, char small) { // function to check if string contains ex
     return 0;
 }
 
-int filter(char *number) {
+int filter(char *text, char *number) {
 
     int number_len = len(number); // len of given number
-    char *text = "jana novotna"; // text - remake to universal - to take line
+    //char *text = "jana novotna"; // text - remake to universal - to take line
     int def = 0; // default - when should it start to search again when there are multiple occurences of same letter
     int iter = 0; // given text iterator
     int match = 0; // match counter
@@ -79,7 +79,7 @@ int filter(char *number) {
     for (int i = 0; i < number_len; i++) {
 
         char *letters; // letters
-        printf("JSEM PRED SWITCHEM, SWITCHUJE CISLO: %c\n", number[i]);
+        //printf("JSEM PRED SWITCHEM, SWITCHUJE CISLO: %c\n", number[i]);
         switch (number[i]) // switch taking number by number - by cycle iterator - and transforming it into letters
         {
             case '2':
@@ -107,22 +107,22 @@ int filter(char *number) {
                 letters = "wxyz";
                 break;
         }
-
-        for (int x = 0; x < len(text); x++) { // iterating text
+        //printf("JSEM ZA SWITCHEM\n");
+        for (int x = 0; x < len(text)-def; x++) { // iterating text
             if (includes(letters, text[iter])!= 0) { // if letter is in transformed number
-                printf("FOUND text iter true: %c, letters: %s, iter: %d, i: %d\n", text[iter], letters, iter, i);
+                //printf("FOUND text iter true: %c, letters: %s, iter: %d, i: %d, text: %s\n", text[iter], letters, iter, i, text);
                 iter++; // increment iterator
                 match++; // increment match
-                if (match == number_len) {printf("SHODA\n");} // checking if its OK
+                if (match == number_len) {printf("SHODA: %s\n", text);} // checking if its OK
                 break; // break cycle to continue matching
                 }
-            printf("NOT FOUND text iter true: %c, letters: %s, iter: %d, i: %d, number[i]: %c\n", text[iter], letters, iter, i, number[i]);
+            //printf("NOT FOUND text iter true: %c, letters: %s, iter: %d, i: %d, number[i]: %c\n", text[iter], letters, iter, i, number[i]);
 
             def += 1; // if its not wanted letter, increment default to start searching on +1 later position next time (for multiple occurence of same letter)
             iter = def; // iterator is same as def because we are iterating using iterator
             i = -1; // reset main cycle
             match = 0; // reset match counter
-            printf("TADY BREAK DO MAIN FOR CYCLU\n");
+            //printf("TADY BREAK DO MAIN FOR CYCLU\n");
             break;
         }
         
@@ -131,7 +131,7 @@ int filter(char *number) {
 }
 
 int main(int argc, char *argv[]) {
-    filter("686");
+    //filter("686");
     if (argc > 2) { // checking if i have correct number of arguments
         printf("Error: too many arguments, expected 1, taken %d\n", argc-1);
         return 1;
@@ -149,10 +149,13 @@ int main(int argc, char *argv[]) {
         while (fgets(line, MAX_RECORD_LEN+1, stdin)) // while records are available
         {
             char *line_wo_nwl = rem_newline(line); // variable to store name-record without newline
-            char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
-
+            //char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
+            //printf("numberline wo nwl: %s\n", number_line_wo_nwl);
+            //filter(line_wo_nwl, number_line_wo_nwl);
+            filter(line_wo_nwl, rem_newline(rem_spaces(number)));
             fgets(number_line, MAX_RECORD_LEN+1, stdin); // getting number-record and storing into number_line
 
+            char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
             char *edited_number = rem_spaces(number_line); // variable to store number without spaces
             char *found = strstr(edited_number, number); // variable to store if substring was found or not
 
