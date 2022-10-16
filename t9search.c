@@ -71,7 +71,7 @@ int includes(char *big, char small) { // function to check if string contains ex
 int filter(char *number) {
 
     int number_len = len(number); // len of given number
-    char *text = "petr novak"; // text - remake to universal - to take line
+    char *text = "jana novotna"; // text - remake to universal - to take line
     int def = 0; // default - when should it start to search again when there are multiple occurences of same letter
     int iter = 0; // given text iterator
     int match = 0; // match counter
@@ -79,6 +79,7 @@ int filter(char *number) {
     for (int i = 0; i < number_len; i++) {
 
         char *letters; // letters
+        printf("JSEM PRED SWITCHEM, SWITCHUJE CISLO: %c\n", number[i]);
         switch (number[i]) // switch taking number by number - by cycle iterator - and transforming it into letters
         {
             case '2':
@@ -109,17 +110,20 @@ int filter(char *number) {
 
         for (int x = 0; x < len(text); x++) { // iterating text
             if (includes(letters, text[iter])!= 0) { // if letter is in transformed number
-                printf("text iter true: %c, letters: %s, iter: %d, i: %d\n", text[iter], letters, iter, i);
+                printf("FOUND text iter true: %c, letters: %s, iter: %d, i: %d\n", text[iter], letters, iter, i);
                 iter++; // increment iterator
                 match++; // increment match
                 if (match == number_len) {printf("SHODA\n");} // checking if its OK
                 break; // break cycle to continue matching
                 }
+            printf("NOT FOUND text iter true: %c, letters: %s, iter: %d, i: %d, number[i]: %c\n", text[iter], letters, iter, i, number[i]);
 
             def += 1; // if its not wanted letter, increment default to start searching on +1 later position next time (for multiple occurence of same letter)
-            iter = def; // iterator is same as def because we are iterating through iterator
-            i = 0; // reset main cycle
+            iter = def; // iterator is same as def because we are iterating using iterator
+            i = -1; // reset main cycle
             match = 0; // reset match counter
+            printf("TADY BREAK DO MAIN FOR CYCLU\n");
+            break;
         }
         
     }
@@ -127,7 +131,7 @@ int filter(char *number) {
 }
 
 int main(int argc, char *argv[]) {
-    filter("668");
+    filter("686");
     if (argc > 2) { // checking if i have correct number of arguments
         printf("Error: too many arguments, expected 1, taken %d\n", argc-1);
         return 1;
