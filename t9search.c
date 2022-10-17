@@ -64,7 +64,7 @@ int filter(char *text, char *number) {
     int def = 0; // default - when should it start to search again when there are multiple occurences of same letter
     int iter = 0; // given text iterator
     int match = 0; // match counter
-    int auxiliary_filter_found = 0;
+    int auxiliary_filter_found = 0; // variable to store if contact was matched or not
 
     for (int i = 0; i < number_len; i++) {
 
@@ -135,15 +135,15 @@ int main(int argc, char *argv[]) {
         char line[MAX_RECORD_LEN]; // declared variable for name-record
         char number_line[MAX_RECORD_LEN]; // declared variable for number-record
         int auxiliary_found = 0; // auxiliary variable to determinate if at least one contact was found or not
-        int filter_found;
-        int filter_found_result = 0;
+        int filter_found; // variable to store if filter found contact or not
+        int filter_found_result = 0; // variable to store if filter found at least one contact or not - decides if printf message not found on the end or dont
 
         while (fgets(line, MAX_RECORD_LEN+1, stdin)) // while records are available
         {
             char *line_wo_nwl = rem_newline(line); // variable to store name-record without newline
-            filter_found = filter(line_wo_nwl, rem_newline(rem_spaces(number)));
+            filter_found = filter(line_wo_nwl, rem_newline(rem_spaces(number))); // filter contact name by given number and save result into variable
 
-            if (filter_found > 0) {
+            if (filter_found > 0) { // if was successful, increment ff_result and get number line for this contact and print it together
                 filter_found_result++;
                 fgets(number_line, MAX_RECORD_LEN+1, stdin); // getting number-record and storing into number_line
                 char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
@@ -151,7 +151,7 @@ int main(int argc, char *argv[]) {
 
             }
 
-            else if (filter_found == 0) {
+            else if (filter_found == 0) { // if was not successful, get number for this contact and try to find if its wanted number by given number or is not
 
                 fgets(number_line, MAX_RECORD_LEN+1, stdin); // getting number-record and storing into number_line
 
