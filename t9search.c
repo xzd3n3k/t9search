@@ -147,7 +147,7 @@ int main(int argc, char *argv[]) {
                 filter_found_result++;
                 fgets(number_line, MAX_RECORD_LEN+1, stdin); // getting number-record and storing into number_line
                 char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
-                printf("NALEZENO pres text: %s, %s\n", line_wo_nwl, number_line_wo_nwl);
+                printf("%s, %s\n", line_wo_nwl, number_line_wo_nwl);
 
             }
 
@@ -159,7 +159,7 @@ int main(int argc, char *argv[]) {
                 char *edited_number = rem_spaces(number_line); // variable to store number without spaces
                 char *found = strstr(edited_number, number); // variable to store if substring was found or not
 
-            if (found != NULL) {auxiliary_found++; printf("NALEZENO: %s, %s\n", line_wo_nwl, number_line_wo_nwl);} // if substring was found increment auxiliary variable and print contact
+            if (found != NULL) {auxiliary_found++; printf("%s, %s\n", line_wo_nwl, number_line_wo_nwl);} // if substring was found increment auxiliary variable and print contact
             }
         }
 
