@@ -3,8 +3,6 @@
 #include <ctype.h>
 #define MAX_RECORD_LEN 100
 
-//TODO comment and in main edit mess w numbers variables
-
 char *rem_spaces(char *str) {   // function to remove spaces from records and return edited records
     int i = 0, j = 0;
 
