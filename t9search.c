@@ -3,6 +3,10 @@
 #include <ctype.h>
 #define MAX_RECORD_LEN 100
 
+// TODO:
+// ADD CONDITIONS FOR INPUT NUMBER TO MATCH REQUIREMENTS - MUST BE NUMBER, NOT TEXT
+// ADD SUPPORT FOR '+' SYMBOL (0 = +)
+
 char *rem_spaces(char *str) {   // function to remove spaces from records and return edited records
     int i = 0, j = 0;
 
