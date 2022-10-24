@@ -4,8 +4,8 @@
 #define MAX_RECORD_LEN 100
 
 // TODO:
-// ADD CONDITIONS FOR INPUT NUMBER TO MATCH REQUIREMENTS - MUST BE NUMBER, NOT TEXT
 // ADD SUPPORT FOR '+' SYMBOL (0 = +)
+
 
 char *rem_spaces(char *str) {   // function to remove spaces from records and return edited records
     int i = 0, j = 0;
@@ -58,6 +58,16 @@ int includes(char *big, char small) { // function to check if string contains ex
     }
     
     return 0;
+}
+
+int is_number(char *str) {
+    for (int i = 0; i < len(str); i++) {
+        if (includes("0123456789", str[i]) != 1) {
+            return 0;
+        }
+    }
+
+    return 1;
 }
 
 int filter(char *text, char *number) {
@@ -125,7 +135,12 @@ int filter(char *text, char *number) {
 int main(int argc, char *argv[]) {
 
     if (argc > 2) { // checking if i have correct number of arguments
-        printf("Error: too many arguments, expected 1, taken %d\n", argc-1);
+        fprintf(stderr, "Error: too many arguments, expected 1, taken %d\n", argc-1);
+        return 1;
+    }
+
+    if (is_number(argv[1]) != 0) {
+        fprintf(stderr, "Error: incorrect number entered, should be number, not text\n");
         return 1;
     }
 
