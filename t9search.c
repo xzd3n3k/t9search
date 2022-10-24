@@ -139,7 +139,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (is_number(argv[1]) != 0) {
+    if (is_number(argv[1]) != 1) {
         fprintf(stderr, "Error: incorrect number entered, should be number, not text\n");
         return 1;
     }
