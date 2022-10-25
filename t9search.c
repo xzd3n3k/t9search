@@ -157,14 +157,14 @@ int main(int argc, char *argv[]) {
         int filter_found; // variable to store if filter found contact or not
         int filter_found_result = 0; // variable to store if filter found at least one contact or not - decides if printf message not found on the end or dont
 
-        while (fgets(line, MAX_RECORD_LEN+1, stdin)) // while records are available
+        while (fgets(line, MAX_RECORD_LEN+2, stdin)) // while records are available
         {
             char *line_wo_nwl = rem_newline(line); // variable to store name-record without newline
             filter_found = filter(line_wo_nwl, rem_newline(rem_spaces(number))); // filter contact name by given number and save result into variable
 
             if (filter_found > 0) { // if was successful, increment ff_result and get number line for this contact and print it together
                 filter_found_result++;
-                fgets(number_line, MAX_RECORD_LEN+1, stdin); // getting number-record and storing into number_line
+                fgets(number_line, MAX_RECORD_LEN+2, stdin); // getting number-record and storing into number_line
                 char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
                 printf("%s, %s\n", line_wo_nwl, number_line_wo_nwl);
 
@@ -172,7 +172,7 @@ int main(int argc, char *argv[]) {
 
             else if (filter_found == 0) { // if was not successful, get number for this contact and try to find if its wanted number by given number or is not
 
-                fgets(number_line, MAX_RECORD_LEN+1, stdin); // getting number-record and storing into number_line
+                fgets(number_line, MAX_RECORD_LEN+2, stdin); // getting number-record and storing into number_line
 
                 char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
                 char *edited_number = rem_spaces(number_line); // variable to store number without spaces
@@ -194,9 +194,14 @@ int main(int argc, char *argv[]) {
         char line[MAX_RECORD_LEN];
         int switcher = 0; // auxiliary variable to determinate which record belongs to which record
 
-        while (fgets(line, MAX_RECORD_LEN+1, stdin)) {
-            
-            for (int i = 0; i < MAX_RECORD_LEN+1; i++) {    // iterating each line and checkign where does it end, replacing enter with end symbol
+        while (fgets(line, MAX_RECORD_LEN+2, stdin)) {
+
+            if (line[len(line)] != '\n') {
+                fprintf(stderr, "Error: some contacts are too long\n");
+                return 1;
+            }
+
+            for (int i = 0; i < MAX_RECORD_LEN+2; i++) {    // iterating each line and checkign where does it end, replacing enter with end symbol
                 if (line[i] == '\n') {line[i] = '\0';}
             }
 
