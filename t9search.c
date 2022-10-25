@@ -60,7 +60,7 @@ int includes(char *big, char small) { // function to check if string contains ex
     return 0;
 }
 
-int is_number(char *str) {
+int is_number(char *str) { // function to check if given sting is number or not
     for (int i = 0; i < len(str); i++) {
         if (includes("0123456789", str[i]) != 1) {
             return 0;
@@ -142,7 +142,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    else if (argc == 2) {
+    else if (argc == 2) { // validating number
 
         if (is_number(argv[1]) != 1) {
         fprintf(stderr, "Error: incorrect number entered, should be number, not text\n");
