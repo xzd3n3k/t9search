@@ -4,7 +4,7 @@
 #define MAX_RECORD_LEN 100
 
 // TODO:
-// ADD SUPPORT FOR '+' SYMBOL (0 = +)
+// ADD SUPPORT FOR '+' SYMBOL TO NUMBER SEARCH
 
 
 char *rem_spaces(char *str) {   // function to remove spaces from records and return edited records
@@ -108,6 +108,9 @@ int filter(char *text, char *number) {
             case '9':
                 letters = "wxyz";
                 break;
+            case '0':
+                letters = "+";
+                break;
             default:
                 return 0;
         }
@@ -139,14 +142,13 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (is_number(argv[1]) != 1) {
+    else if (argc == 2) {
+
+        if (is_number(argv[1]) != 1) {
         fprintf(stderr, "Error: incorrect number entered, should be number, not text\n");
         return 1;
-    }
+        }
 
-
-    else if (argc == 2) {
-        
         char *number = argv[1]; // given number
 
         char line[MAX_RECORD_LEN]; // declared variable for name-record
