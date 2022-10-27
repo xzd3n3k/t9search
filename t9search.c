@@ -3,10 +3,6 @@
 #include <ctype.h>
 #define MAX_RECORD_LEN 100
 
-// TODO:
-// ADD SUPPORT FOR '+' SYMBOL TO NUMBER SEARCH
-
-
 char *rem_spaces(char *str) {   // function to remove spaces from records and return edited records
     int i = 0, j = 0;
 
@@ -51,6 +47,16 @@ int len(char *str) { // function that returns len of given string
     return counter;
 }
 
+int line_validation(char *line) {
+    if (line[len(line)] != '\n') {
+    fprintf(stderr, "Error: some contacts are too long\n");
+
+    return 1;
+    }
+
+    return 0;
+}
+
 int includes(char *big, char small) { // function to check if string contains exact letter returns 1 when it does and 0 when it doesnt
     int len_big = len(big);
     for (int j = 0; j < len_big; j++) {
@@ -84,32 +90,35 @@ int filter(char *text, char *number) {
 
         switch (number[i]) // switch taking number by number - by cycle iterator - and transforming it into letters
         {
+            case '1':
+                letters = "1";
+                break;
             case '2':
-                letters = "abc";
+                letters = "abc2";
                 break;
             case '3':
-                letters = "def";
+                letters = "def3";
                 break;
             case '4':
-                letters = "ghi";
+                letters = "ghi4";
                 break;
             case '5':
-                letters = "jkl";
+                letters = "jkl5";
                 break;
             case '6':
-                letters = "mno";
+                letters = "mno6";
                 break;
             case '7':
-                letters = "pqrs";
+                letters = "pqrs7";
                 break;
             case '8':
-                letters = "tuv";
+                letters = "tuv8";
                 break;
             case '9':
-                letters = "wxyz";
+                letters = "wxyz9";
                 break;
             case '0':
-                letters = "+";
+                letters = "+0";
                 break;
             default:
                 return 0;
@@ -159,12 +168,21 @@ int main(int argc, char *argv[]) {
 
         while (fgets(line, MAX_RECORD_LEN+2, stdin)) // while records are available
         {
+            if(line_validation(line) == 1) {
+                return 1;
+            }
+
             char *line_wo_nwl = rem_newline(line); // variable to store name-record without newline
             filter_found = filter(line_wo_nwl, rem_newline(rem_spaces(number))); // filter contact name by given number and save result into variable
 
             if (filter_found > 0) { // if was successful, increment ff_result and get number line for this contact and print it together
                 filter_found_result++;
                 fgets(number_line, MAX_RECORD_LEN+2, stdin); // getting number-record and storing into number_line
+
+                if (line_validation(number_line) == 1) {
+                    return 1;
+                }
+
                 char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
                 printf("%s, %s\n", line_wo_nwl, number_line_wo_nwl);
 
@@ -174,11 +192,15 @@ int main(int argc, char *argv[]) {
 
                 fgets(number_line, MAX_RECORD_LEN+2, stdin); // getting number-record and storing into number_line
 
+                if (line_validation(number_line) == 1) {
+                    return 1;
+                }
+
                 char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
                 char *edited_number = rem_spaces(number_line); // variable to store number without spaces
-                char *found = strstr(edited_number, number); // variable to store if substring was found or not
+                int found = filter(edited_number, number);
 
-            if (found != NULL) {auxiliary_found++; printf("%s, %s\n", line_wo_nwl, number_line_wo_nwl);} // if substring was found increment auxiliary variable and print contact
+            if (found > 0) {auxiliary_found++; printf("%s, %s\n", line_wo_nwl, number_line_wo_nwl);} // if substring was found increment auxiliary variable and print contact
             }
         }
 
@@ -196,8 +218,7 @@ int main(int argc, char *argv[]) {
 
         while (fgets(line, MAX_RECORD_LEN+2, stdin)) {
 
-            if (line[len(line)] != '\n') {
-                fprintf(stderr, "Error: some contacts are too long\n");
+            if (line_validation(line) == 1) {
                 return 1;
             }
 
