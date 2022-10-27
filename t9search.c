@@ -3,6 +3,7 @@
 #include <ctype.h>
 #define MAX_RECORD_LEN 100
 
+
 char *rem_spaces(char *str) {   // function to remove spaces from records and return edited records
     int i = 0, j = 0;
 
@@ -49,9 +50,14 @@ int len(char *str) { // function that returns len of given string
 
 int line_validation(char *line) {
     if (line[len(line)] != '\n') {
-    fprintf(stderr, "Error: some contacts are too long\n");
+    fprintf(stderr, "Error: some contacts are too long or there is no new line on the end of file\n");
 
     return 1;
+    }
+    if (line[0] == '\n') {
+        fprintf(stderr, "Error: blank line has been found\n");
+
+        return 1;
     }
 
     return 0;
@@ -184,7 +190,7 @@ int main(int argc, char *argv[]) {
                 }
 
                 char *number_line_wo_nwl = rem_newline(number_line); // variable to store number-record without newline
-                printf("%s, %s\n", line_wo_nwl, number_line_wo_nwl);
+                fprintf(stdout, "%s, %s\n", line_wo_nwl, number_line_wo_nwl);
 
             }
 
@@ -200,11 +206,11 @@ int main(int argc, char *argv[]) {
                 char *edited_number = rem_spaces(number_line); // variable to store number without spaces
                 int found = filter(edited_number, number);
 
-            if (found > 0) {auxiliary_found++; printf("%s, %s\n", line_wo_nwl, number_line_wo_nwl);} // if substring was found increment auxiliary variable and print contact
+            if (found > 0) {auxiliary_found++; fprintf(stdout, "%s, %s\n", line_wo_nwl, number_line_wo_nwl);} // if substring was found increment auxiliary variable and print contact
             }
         }
 
-        if (auxiliary_found == 0 && filter_found_result == 0) {printf("Not found");} // if none contact was found print message
+        if (auxiliary_found == 0 && filter_found_result == 0) {fprintf(stdout, "Not found");} // if none contact was found print message
 
         return 0;
         
@@ -229,12 +235,12 @@ int main(int argc, char *argv[]) {
             switch (switcher)
             {
             case 0: // prints 'line, '
-                printf("%s, ", line);
+                fprintf(stdout, "%s, ", line);
                 switcher = 1;
                 break;
 
             case 1: // prints second line next to first line with enter on the end
-                printf("%s\n", line);
+                fprintf(stdout, "%s\n", line);
                 switcher = 0;
                 break;
 
