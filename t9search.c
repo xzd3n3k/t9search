@@ -53,7 +53,7 @@ int len(char *str) { // function that returns len of given string
 
 int line_validation(char *line) { // function that tells if line is valid or not - /n should be on the end of line else its too long, if \n is first char then line is blank
     if (line[len(line)] != '\n') {
-    fprintf(stderr, "Error: some contacts are too long or there is no new line on the end of file\n");
+    fprintf(stderr, "Error: some contacts are too long, there is no new line on the end of file or there is odd count of lines\n");
 
     return 1;
     }
@@ -225,7 +225,10 @@ int main(int argc, char *argv[]) {
         char line[MAX_RECORD_LEN];
         int switcher = 0; // auxiliary variable to determinate which record belongs to which record
 
+        int line_count = 0;
         while (fgets(line, MAX_RECORD_LEN+2, stdin)) {
+
+            line_count += 1;
 
             if (line_validation(line) == 1) {
                 return 1;
@@ -249,6 +252,7 @@ int main(int argc, char *argv[]) {
 
             }
         }
+        if (line_count%2 != 0) fprintf(stderr, "Error: there is odd count of lines\n");
 
         return 0; 
     }
