@@ -48,7 +48,7 @@ int len(char *str) { // function that returns len of given string
     return counter;
 }
 
-int line_validation(char *line) {
+int line_validation(char *line) { // function that tells if line is valid or not - /n should be on the end of line else its too long, if \n is first char then line is blank
     if (line[len(line)] != '\n') {
     fprintf(stderr, "Error: some contacts are too long or there is no new line on the end of file\n");
 
