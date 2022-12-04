@@ -4,7 +4,11 @@
 #define MAX_RECORD_LEN 100
 
 
-// author: xnemec0d
+/**
+ * @name Projekt 1 - t9search
+ * @author Zdeněk Němec <xnemec0d@stud.fit.vutbr.cz>
+ */
+
 
 
 char *rem_spaces(char *str) {   // function to remove spaces from records and return edited records
